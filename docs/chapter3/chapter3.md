@@ -9,9 +9,7 @@
 在输出每一个动作之前，我们可以选择不同的动作。比如在 $t$ 时刻，我选择逃跑的时候，可能熊已经追上来了。如果在 $t$ 时刻，我没有选择装死，而是选择逃跑，这个时候熊已经追上来了，那么我就会转移到不同的状态。有一定的概率我会逃跑成功，也有一定的概率我会逃跑失败。我们用状态转移概率 $p\left[s_{t+1}, r_{t} \mid s_{t}, a_{t}\right]$ 来表示在状态 $s_t$ 选择动作 $a_t$ 的时候，转移到状态 $s_{t+1}$ ，而且得到奖励 $r_t$ 的概率是多少。状态转移概率是具有**马尔可夫性质**的（系统下一时刻的状态仅由当前时刻的状态决定，不依赖于以往任何状态）。因为在这个过程中，下一时刻的状态取决于当前的状态 $s_t$，它和之前的 $s_{t-1}$ 和 $s_{t-2}$ 没有关系。再加上这个过程也取决于智能体与环境交互的 $a_t$ ，所以包含了决策的过程，我们称这样的过程为马尔可夫决策过程。马尔可夫决策过程就是序列决策的经典的表现方式。马尔可夫决策过程也是强化学习里面一个非常基本的学习框架。状态、动作、状态转移概率和奖励 $(S$、$A$、$P$、$R)$，这4个合集就构成了强化学习马尔可夫决策过程的四元组，后面也可能会再加上折扣因子构成五元组。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.1.png"/>
-</div>
+![](../img/ch3/3.1.png)
 <div align=center>图 3.1 马尔可夫决策过程四元组</div>
 
 
@@ -21,9 +19,7 @@
 我们与环境交互时，只能走一条完整的通路，这里面产生了一系列决策的过程，我们与环境交互产生了经验。我们会使用**概率函数（probability function）**$P\left[s_{t+1}, r_{t} \mid s_{t}, a_{t}\right]$和奖励函数 $R\left[s_{t}, a_{t}\right]$来描述环境。概率函数就是状态转移的概率，它反映的是环境的随机性。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.2.png"/>
-</div>
+![](../img/ch3/3.2.png)
 <div align=center>图 3.2 状态转移与序列决策</div>
 
 如果我们知道概率函数和奖励函数，马尔可夫决策过程就是已知的，我们可以通过策略迭代和价值迭代来找最佳的策略。
@@ -38,9 +34,7 @@
 
 如图 3.3 所示，强化学习可以应用于完全未知的和随机的环境。强化学习像人类一样学习，人类通过尝试不同的路来学习，通过尝试不同的路，人类可以慢慢地了解哪个状态会更好。强化学习用价值函数 $V(S)$ 来表示状态是好的还是坏的，用 Q 函数来判断在什么状态下采取什么动作能够取得最大奖励，即用 Q 函数来表示状态-动作值。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.3.png"/>
-</div>
+![](../img/ch3/3.3.png)
 <div align=center>图 3.3 免模型试错探索</div>
 
 ### 3.1.3 有模型与免模型的区别 
@@ -49,18 +43,14 @@
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_1.png"/>
-</div>
+![](../img/ch3/model_free_1.png)
 <div align=center>图 3.4 有模型强化学习方法</div>
 
 
 如图 3.5 所示，当马尔可夫决策过程的模型未知或者模型很大时，我们可以使用免模型强化学习的方法。免模型强化学习方法没有获取环境的状态转移和奖励函数，而是让智能体与环境进行交互，采集大量的轨迹数据，智能体从轨迹中获取信息来改进策略，从而获得更多的奖励。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_2.png"/>
-</div>
+![](../img/ch3/model_free_2.png)
 <div align=center>图 3.5 免模型强化学习方法</div>
 
 
@@ -70,35 +60,27 @@
 如图 3.6 所示，如果 **Q 表格**是一张已经训练好的表格，这张表格就像是一本生活手册。通过查看这本手册，我们就知道在熊发怒的时候，装死的价值会高一点；在熊离开的时候，我们偷偷逃跑会比较容易获救。
 这张表格里面 Q 函数的意义就是我们选择了某个动作后，最后能不能成功，就需要我们去计算在某个状态下选择某个动作，后续能够获得多少总奖励。如果可以预估未来的总奖励的大小，我们就知道在当前的状态下选择哪个动作价值更高。我们选择某个动作是因为这样未来可以获得的价值会更高。所以强化学习的目标导向性很强，环境给出的奖励是非常重要的反馈，它根据环境的奖励来做选择。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.4.png"/>
-</div>
+![](../img/ch3/3.4.png)
 <div align=center>图 3.6 Q表格</div>
 
 Q: 为什么我们可以用未来的总奖励来评价当前动作是好是坏?
 
 A: 例如，如图 3.7 所示，假设一辆车在路上，当前是红灯，我们直接闯红灯的奖励就很低，因为这违反了交通规则，我们得到的奖励是当前的单步奖励。可是如果我们的车是一辆救护车，我们正在运送病人，把病人快速送达医院的奖励非常高，而且越快奖励越高。在这种情况下，我们可能要闯红灯，因为未来的远期奖励太高了。这是因为在现实世界中奖励往往是延迟的，所以强化学习需要学习远期的奖励。我们一般会从当前状态开始，把后续有可能会收到的所有奖励加起来计算当前动作的 Q 值，让 Q 值可以真正代表当前状态下动作的真正价值。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.5.png"/>
-</div>
+![](../img/ch3/3.5.png)
 <div align=center>图 3.7 未来的总奖励示例</div>
 
 但有的时候我们把目光放得太长远并不好。如果任务很快就结束，那么考虑到最后一步的奖励无可厚非。但如果任务是一个持续的没有尽头的任务，即**持续式任务（continuing task）**，我们把未来的奖励全部相加作为当前的状态价值就很不合理。
 股票就是一个典型的例子，如图 3.8 所示，我们关注的是累积的股票奖励，可是如果10年之后股票才有一次大涨大跌，我们肯定不会把10年后的奖励也作为当前动作的考虑因素。这个时候，我们就可以引入折扣因子 $\gamma$ 来计算未来总奖励，$\gamma \in [0,1]$，越往后 $\gamma^n$ 就会越小，越后面的奖励对当前价值的影响就会越小。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.6.png"/>
-</div>
+![](../img/ch3/3.6.png)
 <div align=center>图 3.8 股票的例子</div>
 
 悬崖行走问题是强化学习的一个经典问题，如图 3.9 所示，
 该问题需要智能体从出发点 S 出发，到达目的地 G，同时避免掉进悬崖（cliff），每走一步就有 $-$1分 的惩罚，掉进悬崖会有 $-$100 分的惩罚，但游戏不会结束，智能体会回到出发点，游戏继续，直到到达目的地结束游戏。智能体需要尽快地到达目的地。
 为了到达目的地，智能体可以沿着例如蓝线和红线的路线行走。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.7.png"/>
-</div>
+![](../img/ch3/3.7.png)
 <div align=center>图 3.9 悬崖行走问题</div>
 
 在悬崖行走问题的环境中，我们怎么计算状态动作价值（未来的总奖励）呢？我们可以选择一条路线，计算出这条路线上每个状态动作的价值。在悬崖行走问题里面，智能体每走一步都会拿到 $-$1 分的奖励，只有到达目的地之后，智能体才会停止。
@@ -117,9 +99,7 @@ G_{8}=r_{9}+\gamma G_{9}=-1+0.6 \times(-2.176)=-2.3056 \approx-2.3 \\
 \end{array} 
 $$
 
-<div align=center>
-<img width="550" src="../img/ch3/3.8.png"/>
-</div>
+![](../img/ch3/3.8.png)
 <div align=center>图 3.10 折扣因子</div>
 
 
@@ -127,9 +107,7 @@ $$
 最开始的时候，Q 表格会全部初始化为0。智能体会不断和环境交互得到不同的轨迹，当交互的次数足够多的时候，我们就可以估算出每一个状态下，每个动作的平均总奖励，进而更新 Q  表格。Q表格的更新就是接下来要引入的强化概念。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.9.png"/>
-</div>
+![](../img/ch3/3.9.png)
 <div align=center>图 3.11 Q表格</div>
 
 
@@ -204,9 +182,7 @@ $$
 将其不停迭代，最后可以收敛。如图 3.12 所示，贝尔曼期望备份有两层加和，即内部加和和外部加和，计算两次期望，得到一个更新。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/MC_4.png"/>
-</div>
+![](../img/ch3/MC_4.png)
 <div align=center>图 3.12 贝尔曼期望备份</div>
 
 
@@ -221,9 +197,7 @@ $$
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/MC_5.png"/>
-</div>
+![](../img/ch3/MC_5.png)
 <div align=center>图 3.13 蒙特卡洛方法更新</div>
 
 
@@ -235,9 +209,7 @@ $$
 为了让读者更好地理解时序差分这种更新方法，我们给出它的“物理意义”。我们先了解一下巴甫洛夫的条件反射实验，如图 3.14 所示，这个实验讲的是小狗会对盆里面的食物无条件产生刺激，分泌唾液。一开始小狗对于铃声这种中性刺激是没有反应的，可是我们把铃声和食物结合起来，每次先给它响一下铃，再给它喂食物，多次重复之后，当铃声响起的时候，小狗也会开始流口水。盆里的肉可以认为是强化学习里面那个延迟的奖励，声音的刺激可以认为是有奖励的那个状态之前的状态。多次重复实验之后，最后的奖励会强化小狗对于声音的条件反射，它会让小狗知道这个声音代表着有食物，这个声音对于小狗也就有了价值，它听到这个声音就会流口水。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.10.png"/>
-</div>
+![](../img/ch3/3.10.png)
 <div align=center>图 3.14 强化概念：巴甫洛夫的条件反射实验</div>
 
 
@@ -248,9 +220,7 @@ $$
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.11.png"/>
-</div>
+![](../img/ch3/3.11.png)
 <div align=center>图 3.15 强化示例</div>
 
 
@@ -259,9 +229,7 @@ $$
 在训练的过程中，小黄球在不断地试错，在探索中会先迅速地发现有奖励的格子。最开始的时候，有奖励的格子才有价值。当小黄球不断地重复走这些路线的时候，有价值的格子可以慢慢地影响它附近的格子的价值。
 反复训练之后，有奖励的格子周围的格子的状态就会慢慢被强化。强化就是价值最终收敛到最优的情况之后，小黄球就会自动往价值高的格子走，就可以走到能够拿到奖励的格子。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.13.png"/>
-</div>
+![](../img/ch3/3.13.png)
 <div align=center>图 3.16 时序差分学习网格世界演示</div>
 
 下面我们开始正式介绍时序差分方法。
@@ -298,9 +266,7 @@ $$
 如图 3.17 所示，时序差分方法只执行一步，状态的值就更新。蒙特卡洛方法全部执行完之后，到了终止状态之后，再更新它的值。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/TD_3.png"/>
-</div>
+![](../img/ch3/TD_3.png)
 <div align=center>图 3.17 时序差分方法相比蒙特卡洛方法的优势</div>
 
 
@@ -326,9 +292,7 @@ $$
 我们可以调整步数（step），变成 **$n$步时序差分（$n$-step TD）**。比如 TD(2)，即往前走两步，利用两步得到的回报，使用自举来更新状态的价值。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/TD_5.png"/>
-</div>
+![](../img/ch3/TD_5.png)
 
 $\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$ 图 3.18 $n$步时序差分
 
@@ -373,9 +337,7 @@ $$
 $$
 
 
-<div align=center>
-<img width="550" src="../img/ch3/comparison_2.png"/>
-</div>
+![](../img/ch3/comparison_2.png)
 <div align=center>图 3.19 统一视角：动态规划方法备份</div>
 
 如图 3.20 所示，蒙特卡洛方法在当前状态下，采取一条支路，在这条路径上进行更新，更新这条路径上的所有状态，即
@@ -384,9 +346,7 @@ V\left(s_{t}\right) \leftarrow V\left(s_{t}\right)+\alpha\left(G_{t}-V\left(s_{t
 $$
 
 
-<div align=center>
-<img width="550" src="../img/ch3/comparison_3.png"/>
-</div>
+![](../img/ch3/comparison_3.png)
 <div align=center>图 3.20 统一视角：蒙特卡洛备份</div>
 
 
@@ -396,17 +356,13 @@ $$
 $$
 
 
-<div align=center>
-<img width="550" src="../img/ch3/comparison_4.png"/>
-</div>
+![](../img/ch3/comparison_4.png)
 <div align=center>图 3.21 统一视角：时序差分方法备份</div>
 
 
 如图 3.22 所示，如果 时序差分方法需要更广度的更新，就变成了 动态规划方法（因为动态规划方法是把所有状态都考虑进去来进行更新）。如果时序差分方法需要更深度的更新，就变成了蒙特卡洛方法。图 3.22 右下角是穷举搜索的方法（exhaustive search），穷举搜索的方法不仅需要很深度的信息，还需要很广度的信息。
 
-<div align=center>
-<img width="550" src="../img/ch3/comparison_5.png"/>
-</div>
+![](../img/ch3/comparison_5.png)
 <div align=center>图 3.22 强化学习的统一视角</div>
 
 ## 3.4 免模型控制 
@@ -429,9 +385,7 @@ Q_{\pi_{i}}(s, a)=R(s, a)+\gamma \sum_{s^{\prime} \in S} P\left(s^{\prime} \mid 
 $$
 
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_control_1.png"/>
-</div>
+![](../img/ch3/model_free_control_1.png)
 <div align=center>图 3.23 策略迭代</div>
 
 
@@ -443,9 +397,7 @@ $$
 \pi(s)=\underset{a}{\arg \max} Q(s, a)
 $$
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_control_3.png"/>
-</div>
+![](../img/ch3/model_free_control_3.png)
 <div align=center>图 3.24 广义策略迭代</div>
 
 
@@ -456,9 +408,7 @@ $$
 如何用蒙特卡洛方法来填 Q 表格是这个算法的核心。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_control_4.png"/>
-</div>
+![](../img/ch3/model_free_control_4.png)
 <div align=center>图 3.25 基于探索性开始的蒙特卡洛方法</div>
 
 
@@ -478,9 +428,7 @@ $$
 
 基于 $\varepsilon$-贪心探索的蒙特卡洛方法如图 3.26 所示。
 
-<div align=center>
-<img width="550" src="../img/ch3/model_free_control_7.png"/>
-</div>
+![](../img/ch3/model_free_control_7.png)
 
 $\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$ 图 3.26 基于 $\varepsilon$-贪心探索的蒙特卡洛方法
 
@@ -492,9 +440,7 @@ $\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$ 图 3.26 基于 $\varep
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/bias_variance.png"/>
-</div>
+![](../img/ch3/bias_variance.png)
 <div align=center>图 3.27 偏差-方差</div>
 
 
@@ -515,9 +461,7 @@ Sarsa 直接估计 Q 表格，得到 Q 表格后，就可以更新策略。
 为了理解式(3.4)，
 如图 3.28 所示，我们先把 $r_{t+1}+\gamma Q\left(s_{t+1}, a_{t+1}\right.)$ 当作目标值，即 $Q(s_t,a_t)$ 想要逼近的目标值。$r_{t+1}+\gamma Q\left(s_{t+1}, a_{t+1}\right.)$ 就是时序差分目标。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.14.png"/>
-</div>
+![](../img/ch3/3.14.png)
 <div align=center>图 3.28 时序差分单步更新</div>
 
 
@@ -546,9 +490,7 @@ $$
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.15.png"/>
-</div>
+![](../img/ch3/3.15.png)
 <div align=center>图 3.29 Sarsa算法</div>
 
 
@@ -579,9 +521,7 @@ $$
 （2）获取 $(s_{t}, a_{t}, r_{t+1}, s_{t+1}, a_{t+1})$  这几个值更新 Q 表格。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.16.png"/>
-</div>
+![](../img/ch3/3.16.png)
 <div align=center>图 3.30 Sarsa代码实现示意</div>
 
 
@@ -595,9 +535,7 @@ Q学习是一种**异策略（off-policy）**算法。如图 3.31 所示，异�
 行为策略是探索环境的策略，一般用 $\mu$ 来表示。行为策略可以大胆地去探索到所有可能的轨迹，采集轨迹，采集数据，然后把采集到的数据“喂”给目标策略学习。而且“喂”给目标策略的数据中并不需要 $a_{t+1}$ ，而 Sarsa 是要有 $a_{t+1}$ 的。行为策略像是一个战士，可以在环境里面探索所有的动作、轨迹和经验，然后把这些经验交给目标策略去学习。比如目标策略优化的时候，Q学习不会管我们下一步去往哪里探索，它只选取奖励最大的策略。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.17.png"/>
-</div>
+![](../img/ch3/3.17.png)
 <div align=center>图 3.31 异策略</div>
 
 
@@ -605,9 +543,7 @@ Q学习是一种**异策略（off-policy）**算法。如图 3.31 所示，异�
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/off_policy_learning.png"/>
-</div>
+![](../img/ch3/off_policy_learning.png)
 <div align=center>图 3.32 异策略例子</div>
 
 
@@ -645,9 +581,7 @@ Sarsa 在更新 Q 表格的时候，它用到的是 $A'$ 。我们要获取下�
 Q学习默认的下一个动作不是通过行为策略来选取的，Q学习直接看Q表格，取它的最大化的值，它是默认 $A'$ 为最佳策略选取的动作，所以 Q学习 在学习的时候，不需要传入 $A'$，即 $a_{t+1}$  的值。
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.18.png"/>
-</div>	
+![](../img/ch3/3.18.png)	
 <div align=center>图 3.33 Sarsa与Q学习的伪代码</div>
 
 
@@ -663,9 +597,7 @@ Q学习 是 $r_{t+1}+\gamma  \underset{a}{\max} Q\left(s_{t+1}, a\right)$ 。
 
 
 
-<div align=center>
-<img width="550" src="../img/ch3/3.19.png"/>
-</div>
+![](../img/ch3/3.19.png)
 <div align=center>图 3.34 Sarsa与Q学习的区别</div>
 
 
@@ -681,9 +613,7 @@ Q学习 是 $r_{t+1}+\gamma  \underset{a}{\max} Q\left(s_{t+1}, a\right)$ 。
 
 表格型方法总结如图 3.35 所示。
 
-<div align=center>
-<img width="550" src="../img/ch3/3.21.png"/>
-</div>
+![](../img/ch3/3.21.png)
 <div align=center>图 3.35 表格型方法总结</div>
 
 

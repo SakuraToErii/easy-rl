@@ -53,9 +53,7 @@ $\operatorname{Var}_{x \sim p}[f(x)]$ 和 $\operatorname{Var}_{x \sim q}\left[f(
 接下来我们改成从 $q(x)$ 采样，因为 $q(x)$ 在右边区域的概率比较高，所以如果我们采样的点不够多，可能只会采样到右侧。如果我们只采样到右侧，可能 $\mathbb{E}_{x \sim q}\left[f(x) \frac{p(x)}{q(x)}\right]$ 是正的。
 我们这边采样到这些点，去计算它们的 $f(x) \frac{p(x)}{q(x)}$ 都是正的。我们采样到这些点都是正的，取期望值以后也都是正的，这是因为采样的次数不够多。假设我们采样次数很少，只能采样到右边。左边虽然概率很低，但也有可能被采样到。假设我们好不容易采样到左边的点，因为左边的点的$p(x)$ 和 $q(x)$ 是差很多的， 这边 $p(x)$ 很大，$q(x)$ 很小。 $f(x)$ 好不容易终于采样到一个负的，这个负的就会被乘上一个非常大的权重，这样就可以平衡刚才那边一直采样到正的值的情况。最终我们算出这一项的期望值，终究还是负的。但前提是我们要采样足够多次，这件事情才会发生。但有可能采样次数不够多，$\mathbb{E}_{x \sim p}[f(x)]$ 与 $\mathbb{E}_{x \sim q}\left[f(x) \frac{p(x)}{q(x)}\right]$ 可能就有很大的差距。这就是重要性采样的问题。
 
-<div align=center>
-<img width="550" src="../img/ch5/5.1.png"/>
-</div>
+![](../img/ch5/5.1.png)
 <div align=center>图 5.1 重要性采样的问题</div>
 
 现在要做的就是把重要性采样用在异策略的情况中，把同策略训练的算法改成异策略训练的算法。
@@ -209,17 +207,13 @@ $$
 * 如果小于 $1-\varepsilon$，输出就是 $1-\varepsilon$；
 * 如果介于 $1+\varepsilon$ \~{} $1-\varepsilon$，输出等于输入。
 
-<div align=center>
-<img width="550" src="../img/ch5/5.2.png"/>
-</div>
+![](../img/ch5/5.2.png)
 <div align=center>图 5.2 裁剪函数</div>
 
 
 如图 5.3a 所示，$\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}$ 是绿色的线；$\operatorname{clip}\left(\frac{p_{\theta}\left(a_{t} | s_{t}\right)}{p_{\theta^{k}}\left(a_{t} | s_{t}\right)}, 1-\varepsilon, 1+\varepsilon\right)$ 是蓝色的线；在绿色的线与蓝色的线中间，我们要取一个最小的结果。假设前面乘上的项 $A$ 大于 0，取最小的结果，就是红色的这条线。如图 5.3b 所示，如果 $A$ 小于 0 ，取最小结果的以后，就得到红色的这条线。
 
-<div align=center>
-<img width="550" src="../img/ch5/5.3.png"/>
-</div>
+![](../img/ch5/5.3.png)
 
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; 图 5.3 $A$对裁剪函数输出的影响
 
@@ -234,9 +228,7 @@ $$
 
 图 5.4 所示为 PPO 与其他算法的比较。优势演员-评论员和优势演员-评论员+信任区域（trust region）算法是基于演员-评论员的方法。PPO 算法是用紫色线表示，图 5.4 中每张子图表示某一个强化学习的任务，在多数情况中，PPO 都是不错的，即使不是最好的，也是第二好的。
 
-<div align=center>
-<img width="550" src="../img/ch5/5.4.png"/>
-</div>
+![](../img/ch5/5.4.png)
 <div align=center>图 5.4 PPO与其他算法的比较</div>
 
 ## 参考文献

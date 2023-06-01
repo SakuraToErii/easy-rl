@@ -32,9 +32,7 @@ $$
     
 >如果 $n$阶对称矩阵$\boldsymbol{A}$ 对于任意非零的$n$维向量$\boldsymbol{x}$都有 $\boldsymbol{x}^\mathrm{T}\boldsymbol{A}\boldsymbol{x}>0$，则称矩阵$\boldsymbol{A}$为正定矩阵。  
 
-<div align=center>
-<img width="550" src="../img/ch8/8.2.png"/>
-</div>
+![](../img/ch8/8.2.png)
 <div align=center>图 8.1 方案 3：设计网络架构</div>
 
 ## 8.4 方案 4：不使用深度Q网络  
@@ -42,9 +40,7 @@ $$
 第4个方案就是不使用深度Q网络，用深度Q网络处理连续动作是比较麻烦的。如图 8.2 所示，我们将基于策略的方法————PPO 和基于价值的方法————深度Q网络结合在一起，就可以得到演员-评论员的方法。
 
 
-<div align=center>
-<img width="550" src="../img/ch8/8.3.png"/>
-</div>
+![](../img/ch8/8.3.png)
 <div align=center>图 8.2 方案 4：不使用深度Q网络</div>
 
 
